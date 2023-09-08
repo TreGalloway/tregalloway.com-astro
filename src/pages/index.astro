@@ -7,17 +7,18 @@ import { Icon } from 'astro-icon'
 
 <Layout title="Welcome to Tregalloway.com">
 	<main>
-		<div>
-			<h2 class="text-start text-4xl font-bold">
-				Hey, I'm <span
-					class="bg-gradient-to-r from-sky-100 to-violet-700 bg-clip-text text-transparent"
-					>Tregalloway</span
-				> 👋🏾
-			</h2>
-			<p class="text-md py-3">
-				I’m Tre’ Galloway, a Fullstack Developer and writer based in New Orleans (for now).
-			</p>
-			<Newsletter />
+		<div class="flex flex-row">
+			<div class="basis-2/3">
+				<h2 class="text-start text-4xl font-bold">
+					Hey, I'm <span
+						class="bg-gradient-to-r from-sky-100 to-violet-700 bg-clip-text text-transparent"
+						>Tregalloway</span
+					> 👋🏾
+				</h2><p class="text-md py-3">
+					I’m Tre’ Galloway, a Fullstack Developer and writer based in New Orleans (for now).
+				</p>
+			</div>
+			<div class="basis-1/3"><Newsletter /></div>
 		</div>
 		<PostSection />
 	</main>
