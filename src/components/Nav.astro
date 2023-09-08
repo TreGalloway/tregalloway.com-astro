@@ -1,0 +1,66 @@
+---
+import HeaderLink from './HeaderLink.astro'
+import { Icon } from 'astro-icon'
+---
+
+<Fragment>
+	<nav class="hidden md:inline">
+		<section class="text-bold text-lg">
+			<ul class="unset flex gap-6 [&>li]:p-0">
+				<li><HeaderLink href="/">Home</HeaderLink></li>
+				<li><HeaderLink href="/blog">Blog</HeaderLink></li>
+				<li><HeaderLink href="/work">Work</HeaderLink></li>
+				<li><HeaderLink href="/uses">Uses</HeaderLink></li>
+			</ul>
+		</section>
+	</nav>
+	<nav class="md:hidden">
+		<button id="mobile-menu-open">
+			<i class="fa-solid fa-bars" aria-hidden="true" title="Open mobile menu"></i>
+			<span class="fa-sr-only">Open mobile menu</span>
+		</button>
+		<section
+			id="mobile-menu"
+			class="hide-menu border-primary-blue fixed left-0 top-0 z-10 h-full w-full bg-black/75 transition-transform"
+		>
+			<div class="bg-bg-body h-full w-[75%] drop-shadow-2xl">
+				<button id="mobile-menu-close" class="xml-[1px] h-[5rem] px-6 text-lg">
+					<i class="fa-solid fa-xmark" aria-hidden="true" title="Close mobile menu"></i>
+					<span class="fa-sr-only">Close mobile menu</span>
+				</button>
+				<ul class="unset text-text-bold flex flex-col gap-4 px-6 [&>li]:p-0">
+					<li><HeaderLink href="/">Home</HeaderLink></li>
+					<li><HeaderLink href="/blog">Blog</HeaderLink></li>
+					<li><HeaderLink href="/work">Work</HeaderLink></li>
+					<li><HeaderLink href="/uses">Uses</HeaderLink></li>
+				</ul>
+			</div>
+		</section>
+	</nav>
+</Fragment>
+
+<script>
+	// @ts-nocheck
+	document.querySelector('#mobile-menu-open').addEventListener('click', () => {
+		const menuElem = document.querySelector('#mobile-menu')
+		menuElem.classList.remove('hide-menu')
+		menuElem.classList.add('show-menu')
+		document.body.style.overflow = 'hidden'
+	})
+
+	document.querySelector('#mobile-menu-close').addEventListener('click', () => {
+		const menuElem = document.querySelector('#mobile-menu')
+		menuElem.classList.remove('show-menu')
+		menuElem.classList.add('hide-menu')
+		document.body.style.overflow = 'auto'
+	})
+</script>
+
+<style>
+	.hide-menu {
+		transform: translateX(-100%);
+	}
+	.show-menu {
+		transform: translateX(0%);
+	}
+</style>
