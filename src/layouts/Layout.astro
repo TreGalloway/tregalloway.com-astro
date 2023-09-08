@@ -1,25 +1,67 @@
 ---
 import Header from '../components/Header.astro'
-
-interface Props {
-	title: string;
+import { SEO } from 'astro-seo'
+import Footer from '../components/Footer.astro'
+export interface Props {
+	title: string
 }
 
-const { title } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString()
+
+const resolvedImageWithDomain = new URL('/opengraph.jpg', Astro.site).toString()
+
+const { title } = Astro.props
+
+const makeTitle = title ? title + ' | ' + 'Tre Galloway' : 'Tre Galloway | Software Engineer'
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description">
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+
+		<!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
+		<SEO
+			title={makeTitle}
+			description="All new site built with Astro and TailwindCSS."
+			canonical={canonicalURL}
+			twitter={{
+				creator: '@bytregalloway',
+				site: 'https://twitter.com/bytregalloway',
+				card: 'summary_large_image'
+			}}
+			openGraph={{
+				basic: {
+					url: canonicalURL,
+					type: 'website',
+					title: `Tregalloway.com - Built with Astro and Tailwind CSS`,
+					image: resolvedImageWithDomain
+				},
+				image: {
+					alt: 'Tregalloway.com Homepage Screenshot'
+				}
+			}}
+		/>
 	</head>
-	<body class=" bg-zinc-800">
+	<body class="bg-zinc-800">
 		<Header />
-		<slot />
+		<div class="mx-auto max-w-7xl px-4 text-gray-100 sm:px-6 lg:px-8">
+			<!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
+			<div class="mx-auto mt-4 max-w-5xl">
+				<slot />
+			</div>
+			<Footer />
+		</div>
+
+		<style is:global>
+			/* Improve Page speed */
+			/* https://css-tricks.com/almanac/properties/c/content-visibility/ */
+			img {
+				content-visibility: auto;
+			}
+		</style>
 	</body>
 </html>
